@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: grafana
+  annotations: 
+spec:
+  to:
+    kind: Service
+    name: grafana
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge

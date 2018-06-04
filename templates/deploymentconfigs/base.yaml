@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: base
+  labels:
+    app: base
+spec:
+  template:
+    metadata:
+      labels:
+        app: base
+    spec:
+      containers:
+      - name: base
+        image: docker-registry.default.svc:5000/{{project}}/base
+        volumeMounts:
+          - mountPath: /.aws
+            name: aws-conf
+      volumes:
+      - name: aws-conf
+        persistentVolumeClaim:
+          claimName: aws-conf
+  replicas: 1
+          

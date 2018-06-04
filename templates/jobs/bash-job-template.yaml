@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{name}}"
+spec:
+  parallelism: 1    
+  completions: 1    
+  template:         
+    metadata:
+      name: "{{name}}"
+    spec:
+      containers:
+      - name: "{{name}}"
+        image: docker-registry.default.svc:5000/{{project}}/grafana
+        command: ["bash", "-c", ""]
+      restartPolicy: OnFailure
