@@ -8,6 +8,7 @@ function generate_password {
 # create a db to influxdb
 oc rsh dc/influxdb curl -G http://localhost:8086/query --data-urlencode "q=CREATE DATABASE db" -X POST
 
+
 grafana_password="$(generate_password)"
 
 oc rsh dc/grafana grafana-cli admin reset-admin-password --homepath "/usr/share/grafana" "$grafana_password" 

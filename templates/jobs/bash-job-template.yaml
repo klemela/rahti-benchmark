@@ -11,6 +11,17 @@ spec:
     spec:
       containers:
       - name: "{{name}}"
-        image: docker-registry.default.svc:5000/{{project}}/grafana
+        image: docker-registry.default.svc:5000/{{project}}/base
         command: ["bash", "-c", ""]
+        volumeMounts:        
+        - mountPath: /opt/test
+          name: data
+        - mountPath: /.aws
+          name: aws-conf
+      volumes:
+      - name: data
+        emptyDir: {}
+      - name: aws-conf
+        persistentVolumeClaim:
+          claimName: aws-conf
       restartPolicy: OnFailure
