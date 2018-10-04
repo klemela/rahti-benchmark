@@ -35,7 +35,7 @@ cat templates/cronjobs/bash-cronjob-template.yaml \
   | sed s/{{name}}/$name/g \
   | sed s/{{project}}/$project/g \
   | sed s/{{completions}}/$completions/g \
-  | sed s/{{schedule}}/"$schedule"/g \
+  | sed s%{{schedule}}%"$schedule"%g \
   | yq -j r - | jq .spec.jobTemplate.spec.template.spec.containers[0].command[2]="$(cat $job | jq -s -R .)" \
   | tee /dev/stderr \
   | oc create -f - --validate

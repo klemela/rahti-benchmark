@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 RUN apt-get update -y \ 
 	&& apt-get upgrade -y \
-	&& apt-get install -y nano dstat pv wget unzip bzip2 curl parallel jq nmap python-pip bc \
+	&& apt-get install -y nano dstat pv wget unzip bzip2 curl parallel jq nmap python-pip bc iperf3 \
 	&& apt-get clean
 
 RUN pip install awscli

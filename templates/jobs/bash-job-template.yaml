@@ -18,10 +18,15 @@ spec:
           name: data
         - mountPath: /.aws
           name: aws-conf
+        - mountPath: /mnt/data
+          name: test-data
       volumes:
       - name: data
         emptyDir: {}
       - name: aws-conf
         persistentVolumeClaim:
           claimName: aws-conf
+      - name: test-data
+        persistentVolumeClaim:
+          claimName: test-data
       restartPolicy: OnFailure
