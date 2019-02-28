@@ -4,6 +4,9 @@ key="s3-put-4GB-1job-1chunk"
 
 dd if=/dev/urandom of=/opt/test/rand bs=1M count=$size
 
+# remove the config in case parallel jobs have corrupted it
+rm -f .aws/config
+
 aws configure set default.s3.multipart_threshold ${size}MB
 aws configure set default.s3.multipart_chunksize ${size}MB
 
