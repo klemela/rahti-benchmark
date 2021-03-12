@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: influxdb
-        image: influxdb
+        image: influxdb:1.8
         ports:                
         - name: api
           containerPort: 8086
