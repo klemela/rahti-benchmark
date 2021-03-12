@@ -1,9 +1,12 @@
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y wget
-RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_5.0.1_amd64.deb
-RUN apt-get install -y adduser libfontconfig
-RUN dpkg -i grafana_5.0.1_amd64.deb
+RUN apt-get update \
+&& apt-get install -y apt-transport-https \
+&& apt-get install -y software-properties-common wget \
+&& wget -q -O - https://packages.grafana.com/gpg.key | apt-key add - \
+&& echo "deb https://packages.grafana.com/oss/deb stable main" | tee -a /etc/apt/sources.list.d/grafana.list \
+&& apt-get update \
+&& apt-get install -y grafana
 
 RUN chmod -R a+rwx /var/lib
 RUN chmod -R a+rwx /var/log
