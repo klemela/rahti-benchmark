@@ -11,7 +11,7 @@ oc rsh dc/influxdb curl -G http://localhost:8086/query --data-urlencode "q=CREAT
 
 grafana_password="$(generate_password)"
 
-oc rsh dc/grafana grafana-cli admin reset-admin-password --homepath "/usr/share/grafana" "$grafana_password" 
+oc rsh dc/grafana grafana-cli --config /usr/share/grafana/conf/custom.ini admin reset-admin-password $grafana_password
 
 curl https://grafana-$(get_project).$(get_domain)/api/datasources -u admin:$grafana_password -X POST --data-binary '{ "name": "InfluxDB", "type": "influxdb", "url": "http://influxdb:8086", "access": "proxy", "basicAuth": false, "database": "db" }' -H Content-Type:application/json
 

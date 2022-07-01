@@ -1,0 +1,7 @@
+bases:
+  - builds
+  - deploymentconfigs
+  - pvcs
+  - services
+  - routes
+

@@ -1,0 +1,4 @@
+resources:
+  - base.yaml
+  - grafana.yaml
+  - influxdb.yaml

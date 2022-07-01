@@ -1,0 +1,46 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: grafana
+  name: grafana
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: grafana:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    dockerfile: |
+      FROM ubuntu:20.04
+
+      RUN apt-get update \
+      && apt-get install -y apt-transport-https \
+      && apt-get install -y software-properties-common wget \
+      && wget -q -O - https://packages.grafana.com/gpg.key | apt-key add - \
+      && echo "deb https://packages.grafana.com/oss/deb stable main" | tee -a /etc/apt/sources.list.d/grafana.list \
+      && apt-get update \
+      && apt-get install -y grafana
+
+      RUN chmod -R a+rwx /var/lib
+      RUN chmod -R a+rwx /var/log
+
+      RUN echo [auth.anonymous] >> /usr/share/grafana/conf/custom.ini \
+      && echo enabled = true >> /usr/share/grafana/conf/custom.ini \
+      && chmod ugo+rwx /usr/share/grafana/conf/custom.ini
+
+      CMD cd /usr/share/grafana ; /usr/sbin/grafana-server
+    type: Dockerfile
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: ubuntu:20.04
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - type: ConfigChange
+  - imageChange:
+    type: ImageChange

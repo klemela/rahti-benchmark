@@ -1,0 +1,7 @@
+resources:
+  - base/base.yaml
+  - base/is.yaml
+  - grafana/grafana.yaml
+  - grafana/is.yaml
+  - ubuntu-is.yaml
+  

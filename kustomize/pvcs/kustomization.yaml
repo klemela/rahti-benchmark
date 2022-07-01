@@ -1,0 +1,6 @@
+resources:
+  - aws-conf.yaml
+  - grafana.yaml
+  - influxdb.yaml
+  - test-data.yaml
+  
