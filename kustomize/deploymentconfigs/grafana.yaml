@@ -25,4 +25,14 @@ spec:
         persistentVolumeClaim:
           claimName: grafana      
   replicas: 1
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - grafana
+        from:
+          kind: ImageStreamTag
+          name: 'grafana:latest'
+      type: ImageChange
           

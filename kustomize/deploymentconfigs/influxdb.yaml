@@ -25,4 +25,14 @@ spec:
         persistentVolumeClaim:
           claimName: influxdb      
   replicas: 1
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - influxdb
+        from:
+          kind: ImageStreamTag
+          name: 'influxdb:1.8'
+      type: ImageChange
           

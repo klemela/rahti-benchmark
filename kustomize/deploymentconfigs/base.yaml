@@ -22,4 +22,14 @@ spec:
         persistentVolumeClaim:
           claimName: aws-conf
   replicas: 1
-          
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - base
+        from:
+          kind: ImageStreamTag
+          name: 'base:latest'
+      type: ImageChange
+  
